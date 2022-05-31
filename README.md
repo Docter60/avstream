@@ -1,7 +1,7 @@
 # IRIX O2 avstream
 
 ## Table of Contents
-- [SGI IRIX Net Booting Guide by Example](#sgi-irix-net-booting-guide-by-example)
+- [IRIX O2 avstream](#irix_o2-avstream)
   - [Table of Contents](#table-of-contents)
   - [Description](#description)
   - [Requirements](#requirements)
