@@ -17,6 +17,8 @@ The install.sh script should take care of installing the OpenInventor extension,
 
 This was developed and tested only on O2/O2+ machines with AV1 modules.
 
+Documentation for the plugin can be found on the 'SGI General Demos 1 of 2 (05/2001)' disc in the demos_O2.sw.src sub-package. File path to plugin files is "/usr/share/src/demos_O2/lib/SoDMBufferVideoEngine".  Documentation is viewed via web browser using the provided html files.
+
 ## Requirements
 
 - IRIX 6.5.22 (may not need to be this specific)
