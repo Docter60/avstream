@@ -6,7 +6,6 @@
 #include <Inventor/nodes/SoDMBufferTexture2.h>
 #include <Inventor/engines/SoDMBufferVideoEngine.h>
 #include <Inventor/Xt/SoXt.h>
-#include <Inventor/Xt/viewers/SoXtExaminerViewer.h>
 #include <Xm/Protocols.h>
 #include <Xm/Label.h>
 
@@ -16,6 +15,8 @@
 #include <sys/types.h>
 #include <sys/prctl.h>
 #include <unistd.h>
+
+#include "SoXtAVStreamViewer.h"
 
 static int audioConnectionID = 0;
 
@@ -47,8 +48,8 @@ int main(int , char **argv) {
 
    root->addChild(new SoCube);
 
-   SoXtExaminerViewer *myViewer = 
-            new SoXtExaminerViewer(myWindow);
+   SoXtAVStreamViewer *myViewer = 
+            new SoXtAVStreamViewer(myWindow);
    myViewer->setSceneGraph(root);
    myViewer->setTitle("Composite In Streaming");
 

@@ -1,7 +1,7 @@
 #ifndef SOXTAVSTREAMVIEWER_H_
 #define SOXTAVSTREAMVIEWER_H_
 
-#include <Inventor/Xt/viewer/SoXtFullViewer.h>
+#include <Inventor/Xt/viewers/SoXtFullViewer.h>
 #include <Inventor/SbLinear.h>
 
 class SoXtAVStreamViewer : public SoXtFullViewer {
@@ -30,7 +30,7 @@ class SoXtAVStreamViewer : public SoXtFullViewer {
 	private:
 		int mode;
 		SbBool createdCursors;
-		Cursor vwrCursor;
+		Cursor vwrCursor, seekCursor;
 		SbVec2s locator;
 		SbVec3f locator3D;
 		SbPlane focalplane;

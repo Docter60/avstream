@@ -1,1 +1,7 @@
 .vscode
+ii_files
+
+*.o
+*.a
+Makedepend
+a.out

@@ -15,7 +15,8 @@ TARGETS = $(PROGRAM)
 LLDLIBS =-lInventorDMBuffer -lInventorXt -lInventor \
          -lGLU -lGL -lXm -lXt -lX11 -lm -lvl -ldmedia \
          -laudio
-C++FILES = avstream.c++
+C++FILES = avstream.c++ \
+	   SoXtAVStreamViewer.c++
 
 # Use compiler flag IV_STRICT to catch things in the code that are not
 # recommended for use with Inventor 2.1

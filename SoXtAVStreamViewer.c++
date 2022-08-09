@@ -33,9 +33,9 @@ SoXtAVStreamViewer::SoXtAVStreamViewer(
 	setSize(SbVec2s(520, 360));
 
 	setPopupMenuString("Simple Viewer");
-	setupBottomWheelString("transX");
-	setupLeftWheelString("transY");
-	setupRightWheelString("Dolly");
+	setBottomWheelString("transX");
+	setLeftWheelString("transY");
+	setRightWheelString("Dolly");
 	setPrefSheetString("AVStream Viewer Preference Sheet");
 	setTitle("AVStream Viewer");
 }
@@ -58,7 +58,7 @@ void SoXtAVStreamViewer::setViewing(SbBool flag) {
 			XDefineCursor(XtDisplay(w), XtWindow(w), vwrCursor);
 		}
 		else
-			XtUndefineCursor(XtDisplay(w), XtWindow(w));
+			XUndefineCursor(XtDisplay(w), XtWindow(w));
 	}
 }
 
@@ -118,26 +118,27 @@ void SoXtAVStreamViewer::switchMode(int newMode) {
 		defineCursors();
 
 	mode = newMode;
-	switch)mode) {
+	switch(mode) {
 		case IDLE_MODE:
 			if(window != 0)
 				XDefineCursor(display, window, vwrCursor);
 			break;
 		case TRANS_MODE:
 			{
-				SbMatrix mx = camera->orientation.getValue();
+				SbMatrix mx;
+				mx = camera->orientation.getValue();
 				SbVec3f forward(-mx[2][0], -mx[2][1], -mx[2][2]);
 				SbVec3f fp = camera->position.getValue() +
 					forward * camera->focalDistance.getValue();
-				focalPlane = SbPlane(forward, fp);
+				focalplane = SbPlane(forward, fp);
 
 				SbVec2s windowSize = getGlxSize();
 				SbLine line;
 				SbViewVolume cameraVolume = camera->getViewVolume();
 				cameraVolume.projectPointToLine(
-						SbVec2f(locator[0]) / float(windowSize[0],
+						SbVec2f(locator[0] / float(windowSize[0]),
 							locator[1] / float(windowSize[1])), line);
-				focalPlane.intersect(line, locator3D);
+				focalplane.intersect(line, locator3D);
 			}
 			if(window != 0)
 				XDefineCursor(display, window, vwrCursor);
@@ -177,7 +178,8 @@ void SoXtAVStreamViewer::bottomWheelMotion(float newVal) {
 	if(camera == NULL)
 		return;
 
-		SbMatrix mx = camera->orientation.getValue();
+		SbMatrix mx;
+		mx = camera->orientation.getValue();
 		SbVec3f rightVector(mx[0][0], mx[0][1], mx[0][2]);
 		float dist = transXspeed * (bottomWheelVal - newVal);
 		camera->position = camera->position.getValue() +
@@ -190,7 +192,8 @@ void SoXtAVStreamViewer::leftWheelMotion(float newVal) {
 	if(camera == NULL)
 		return;
 	
-	SbMatrix mx = camera->orientation.getValue();
+	SbMatrix mx;
+	mx = camera->orientation.getValue();
 	SbVec3f upVector(mx[1][0], mx[1][1], mx[1][2]);
 	float dist = transYspeed * (leftWheelVal - newVal);
 	camera->position = camera->position.getValue() +
@@ -204,9 +207,10 @@ void SoXtAVStreamViewer::rightWheelMotion(float newVal) {
 		return;
 	
 	float focalDistance = camera->focalDistance.getValue();
-	float newFocalDistance = focalDistance / pow(2.0, newVal - rightWheelVal);
+	float newFocalDistance = focalDistance / pow(2.0f, newVal - rightWheelVal);
 	
-	SbMatrix mx = camera->orientation.getValue();
+	SbMatrix mx;
+	mx = camera->orientation.getValue();
 	SbVec3f forward(-mx[2][0], -mx[2][1], -mx[2][2]);
 	camera->position = camera->position.getValue() +
 		(focalDistance - newFocalDistance) * forward;
@@ -255,7 +259,7 @@ void SoXtAVStreamViewer::translateCamera() {
 	SbVec3f newLocator3D;
 	SbViewVolume cameraVolume = camera->getViewVolume();
 	cameraVolume.projectPointToLine(newLocator, line);
-	focalPlane.intersect(line, newLocator3D);
+	focalplane.intersect(line, newLocator3D);
 
 	camera->position = camera->position.getValue() +
 		(locator3D - newLocator3D);
